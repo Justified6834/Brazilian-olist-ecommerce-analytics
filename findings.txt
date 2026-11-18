@@ -1,0 +1,52 @@
+Data Import and Quality
+Row-Count Validation
+•	All eight tables were imported and checked against the source file. Orders: 99,441, customers: 99,441, order items: 112,650, products: 32,951, order payments: 103,886, product category name translation: 71, sellers: 3,095, order reviews 99,224
+Order Reviews Import
+•	Order reviews have emojis, text in quotes, line breaks, and physical lines, which is mostly responsible for the table import wizard’s inability to import 99,224 rows and only imported 279. 
+•	The table was recreated with 4-byte character set(utf8mb4), and the file was loaded with LOAD DATA LOCAL INFILE, using quoted fields and \r\n line endings. Empty texts were converted to NULL.
+•	It was also discovered that one comment ended with a backslash, and this was fixed using ESCAPED BY ‘’
+•	The primary key is the combination of order id and review id because one order may have more than one review
+
+Monthly Trend
+•	There’s a growth peak in November 2017; 24th November 2017 alone has 1147 orders, which is consistent with Black Friday date
+•	2016 sales are significantly low and incomplete; this is suspected to be a result of the launch phase or partial sample, so they are excluded from the trend
+•	January – August 2018 sales are much higher than January – August 2017 sales; this suggests steady growth from the launch phase to 2018. Also, there’s a growth plateau after early 2018. 
+•	2018 sales seem to be much better than 2017; it ranges from 6000 - 7000 orders, and the product value from R$830000 - R$980000
+•	The trend is calculated only with delivered orders while dashboard’s monthly trend uses product value with all orders
+Validation
+•	Product value is R$ 13,591,643.70, freight value is R$2,251,909.54, order value is R$15,843,553.24, AOV is 160.58 for product with freight and 137.75 for product-only AOV, which matches the Python calculation perfectly
+•	AOV was calculated using only 98,666 orders that have item records and not the whole 99,441 orders.
+•	775 orders (0.8% of 99,441) have no item records. They add no product value, are excluded from the 98,666 orders count used for AOV, and none are delivered.
+Top 10 Categories
+•	Product values for the categories were calculated and ordered to get the top 10 categories, with health beauty at the top at R$1,258,681.34 with 9.26%, watches gifts at 8.87%, and bed bath table at 7.63%. The top 10 categories account for about 62% of product value.
+•	Following the observation from the second and third top categories, it is seen that items sold don’t predict product value. Watches gifts with 5991 items have a higher product value (R$1,205,005.68) than bed bath table with 11,115 items and R$ 1,036,988.68 product value
+•	Products without English name translations were supplied their translations explicitly, pc gamer to gaming pc, portateis cozinha e preparadores de alimentos to kitchen food preparation appliances.
+•	1,603 item rows (1.4% of items, R$179,535.28 or 1.3% of product value) belong to products with no category in the source data. They are labelled “unknown” so totals still reconcile to R$13.59M.
+Top 10 Sellers
+•	Sales are widely distributed among sellers; the top first seller has 1.69% while the top tenth has approximately 1%, which is not much of a difference. Also, the top 10 sellers amount to approximately 13% of product value. These suggest that sales are not dependent on a particular seller or group of sellers.
+•	Sellers win in different ways. Seller 
+53243585a1d6dc2643021fd1853d8905 (the second ranked seller) sold 410 items and has R$222,776.05 in product value, while seller 4a3ca9315b744ce9f8e9374361493884 (third ranked seller) sold 1987 items and has a product value of R$200,472.92
+Delivery Statistics
+•	There were 96,470 orders with complete dates, 7,826 late orders, the average delivery day was 12.5 calendar days, and 8.11% is the late delivery rate of orders that arrived after the estimated delivery date. Orders with missing delivered or estimated delivery dates were excluded.
+•	The late delivery rate was mostly 3 to 5% through 2017 but spiked to 14.31% in November 2017, which coincides with Black Friday month. Also, the next big spike is in February 2018 with a late delivery rate of 15.99% and March 2018 with 21.36%, but dropping back to 5.31% in April.
+•	August 2018 appears fast with 7.66 average delivery days, but the data is probably incomplete, and some orders might not have been delivered by the time the data ends. 2016 orders are too few to interpret
+
+Reviews vs Delivery
+•	Late orders (7,661) have an average review score of 2.57 and a 53.99% low review pct (<= 2) compared to an average review score of 4.29 and 9.19% low review pct (<= 2) for on time (88,163) orders.
+•	This is not proof that late delivery causes low review score, but it shows a strong link
+•	The 646 orders; 96470 – (88,163 + 7,661) without a review are excluded. Reviews were averaged per order because 551 orders have more than one review
+Payments and Repeat Customers
+Payments
+•	Credit cards account for 78.34% of payment value with a value of R$12.54M. It was followed by boleto with 17.92% and a value of R$2.87M, vouchers at 2.37%, and debit cards at 1.36%.
+•	Payment value is R$16,008,872.12, slightly above product plus freight (R$15,843,553.24).
+Repeat Customers
+•	Out of 96,096 unique customers, only 2,997 (3.12%) are repeat customers, which suggests a retention opportunity.
+•	This includes all orders, including cancelled ones.
+Customer – Location Purchase Behavior
+•	SP, RJ, and MG states alone generate about 63% of the total product value (for delivered orders). SP has 38.32% of the total product value with about R$5.07m in product value.
+•	Late rate does not follow average delivery days.
+Views
+•	Orders, order items, and order payments views were created to take care of relationships creation in Power BI.
+•	The views give Power BI one row per order, so slicers filter every visual.
+The amounts in the project are in R$, and no profit was claimed because the dataset has no cost information.
+The dashboard trend covers all statuses, while Query 1 used delivered orders only, so monthly values will differ slightly

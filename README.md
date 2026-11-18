@@ -19,8 +19,8 @@ Tools used - Python, MySQL, and Power BI.
 -	SP, RJ, and MG states have about 63% of product value.
 -	Repeat customer rate is 3.12%.
 ##	Dashboard
-![Overview](images/overview.png) 
-![Drilldown](images/drilldown.png) 
+![Overview](images/Overview.png) 
+![Drilldown](images/Drilldown.png) 
 ##	Repository 
 -	sql/: import scripts, nine analysis queries, and the views used by Power BI 
 -	notebooks/: Python data profiling 

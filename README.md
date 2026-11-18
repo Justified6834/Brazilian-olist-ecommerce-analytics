@@ -9,6 +9,8 @@ Tools used - Python, MySQL, and Power BI.
 -	What payment methods do customers use? 
 -	Do customers come back?
 
+##  Brazilian Olist E-commerce dataset (https://github.com/profadept/olist-brazilian-ecommerce/blob/main/SOURCE.md?utm_source=chatgpt.com)
+
 ##	Key findings
 -	Product value is R$13.59M with 98,666 orders with items and average order value of R$137.75 and R$160.58 with freight value.
 -	Orders peaked in November 2017 (with 1,147 orders on November 24th alone), and plateaued in 2018 consistent with Black Friday 

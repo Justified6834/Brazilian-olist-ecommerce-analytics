@@ -1,6 +1,7 @@
 #	E-commerce Performance & Customer Experience Analytics
 End to end analysis of Olist Brazilian E-commerce dataset (about 99,000 orders, 2016-2018). Amounts are in Brazilian reais (R$), and there is no cost data, so profit isn’t calculated.
 Tools used - Python, MySQL, and Power BI.
+Skills - SQL (CTEs, window functions, views, joins), Power BI (data model, DAX, slicers), Python (profiling), data validation
 ##	Business questions
 -	What is the sales trend? 
 -	How did product categories, and sellers perform? 
@@ -9,18 +10,19 @@ Tools used - Python, MySQL, and Power BI.
 -	What payment methods do customers use? 
 -	Do customers come back?
 
-##  Brazilian Olist E-commerce dataset (https://github.com/profadept/olist-brazilian-ecommerce/blob/main/SOURCE.md?utm_source=chatgpt.com)
-
+##  Dataset 
+[Brazilian E-commerce Public Dataset by Olist]
+(https://github.com/profadept/olist-brazilian-ecommerce/blob/main/SOURCE.md?utm_source=chatgpt.com) (Kaggle), about 99,000 orders from 2016 - 2018.
+##	Dashboard
+![Overview](images/Overview.png) 
+![Drilldown](images/Drilldown.png)
 ##	Key findings
 -	Product value is R$13.59M with 98,666 orders with items and average order value of R$137.75 and R$160.58 with freight value.
--	Orders peaked in November 2017 (with 1,147 orders on November 24th alone), and plateaued in 2018 consistent with Black Friday 
+-	Orders peaked in November 2017 (with 1,147 orders on November 24th alone consistent with Black Friday), and plateaued in 2018
 -	Top 10 product categories hold about 62% of product value while top 10 sellers hold about 13%.
 -	Late delivery rate is 8.11%. On time delivery has an average of 4.29 stars review, late delivery has average review score of 2.57 stars.
 -	SP, RJ, and MG states have about 63% of product value.
 -	Repeat customer rate is 3.12%.
-##	Dashboard
-![Overview](images/Overview.png) 
-![Drilldown](images/Drilldown.png) 
 ##	Repository 
 -	sql/: import scripts, nine analysis queries, and the views used by Power BI 
 -	notebooks/: Python data profiling 
